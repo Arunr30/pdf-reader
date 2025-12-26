@@ -3,7 +3,7 @@ import Login from "./auth/Login";
 import PdfViewer from "./pdf/PdfViewer";
 import { addText } from "./tools/TextTool";
 import { typedSignature, startDraw, stopDraw } from "./tools/SignatureTool";
-import { exportPdf } from "./utils/exportPdf";
+import { exportPdf } from "./utils/exportPdf.js";
 
 export default function App() {
   const [loggedIn, setLoggedIn] = useState(false);
