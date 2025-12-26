@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect } from "react";
 
-export default function AnnotationLayer({ pdfWidth, pdfHeight }) {
+export default function AnnotationLayer({ pdfWidth, pdfHeight, onReady }) {
   const canvasRef = useRef(null);
   const [mode, setMode] = useState("text");
   const [isDrawing, setIsDrawing] = useState(false);
@@ -17,6 +17,8 @@ export default function AnnotationLayer({ pdfWidth, pdfHeight }) {
     ctx.strokeStyle = "black";
     ctx.font = "16px Arial";
     ctx.fillStyle = "black";
+
+    if (onReady) onReady(canvas);
   }, [pdfWidth, pdfHeight]);
 
   const handleMouseDown = (e) => {
@@ -53,47 +55,6 @@ export default function AnnotationLayer({ pdfWidth, pdfHeight }) {
 
   return (
     <div style={{ position: "relative", width: pdfWidth, height: pdfHeight }}>
-      <div
-        style={{
-          position: "absolute",
-          top: 0,
-          left: 0,
-          zIndex: 20,
-          display: "flex",
-          gap: "8px",
-        }}
-      >
-        <button
-          onClick={() => setMode("text")}
-          style={{ background: mode === "text" ? "#a0c4ff" : "#ddd" }}
-        >
-          Text
-        </button>
-        <button
-          onClick={() => setMode("signature")}
-          style={{ background: mode === "signature" ? "#a0c4ff" : "#ddd" }}
-        >
-          Signature
-        </button>
-        <button
-          onClick={() => setMode("draw")}
-          style={{ background: mode === "draw" ? "#a0c4ff" : "#ddd" }}
-        >
-          Draw
-        </button>
-
-        {(mode === "text" || mode === "signature") && (
-          <input
-            type="text"
-            placeholder={mode === "text" ? "Enter text" : "Enter signature"}
-            value={inputValue}
-            onChange={(e) => setInputValue(e.target.value)}
-            style={{ padding: "4px" }}
-          />
-        )}
-      </div>
-
-      {/* Canvas */}
       <canvas
         ref={canvasRef}
         style={{

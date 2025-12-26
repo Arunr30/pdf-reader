@@ -2,11 +2,15 @@ import { Document, Page } from "react-pdf";
 import { useState, useRef } from "react";
 import AnnotationLayer from "./AnnotationLayer";
 
-export default function PdfViewer({ file }) {
-  const [currentPage, setCurrentPage] = useState(1);
+export default function PdfViewer({
+  file,
+  currentPage,
+  setPage,
+  onCanvasReady,
+}) {
   const [numPages, setNumPages] = useState(0);
-  const [pageSize, setPageSize] = useState({ width: 0, height: 0 });
   const pageRef = useRef(null);
+  const [pageSize, setPageSize] = useState({ width: 0, height: 0 });
 
   const handlePageRender = () => {
     if (pageRef.current) {
@@ -20,7 +24,7 @@ export default function PdfViewer({ file }) {
       <div className="flex gap-4 mb-4">
         <button
           disabled={currentPage <= 1}
-          onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+          onClick={() => setPage((p) => Math.max(1, p - 1))}
         >
           Prev
         </button>
@@ -29,7 +33,7 @@ export default function PdfViewer({ file }) {
         </span>
         <button
           disabled={currentPage >= numPages}
-          onClick={() => setCurrentPage((p) => Math.min(numPages, p + 1))}
+          onClick={() => setPage((p) => Math.min(numPages, p + 1))}
         >
           Next
         </button>
@@ -53,6 +57,7 @@ export default function PdfViewer({ file }) {
           <AnnotationLayer
             pdfWidth={pageSize.width}
             pdfHeight={pageSize.height}
+            onReady={(canvas) => onCanvasReady(currentPage, canvas)}
           />
         )}
       </div>

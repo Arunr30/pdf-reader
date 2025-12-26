@@ -3,7 +3,7 @@ import Login from "./auth/Login";
 import PdfViewer from "./pdf/PdfViewer";
 import { addText } from "./tools/TextTool";
 import { typedSignature, startDraw, stopDraw } from "./tools/SignatureTool";
-import { exportPdf } from "./utils/exportPdf.js";
+import { exportPDF } from "./utils/exportPDF.js";
 
 export default function App() {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -17,6 +17,7 @@ export default function App() {
 
   return (
     <div className="p-4">
+      {/* File selection */}
       <input
         type="file"
         accept="application/pdf"
@@ -25,6 +26,7 @@ export default function App() {
 
       {file && (
         <>
+          {/* Annotation controls */}
           <div className="flex gap-2 my-3 flex-wrap">
             <button
               className="bg-blue-500 text-white px-3 py-1"
@@ -57,7 +59,7 @@ export default function App() {
             <button
               className="bg-green-600 text-white px-3 py-1"
               onClick={async () => {
-                const bytes = await exportPdf(file, canvases);
+                const bytes = await exportPDF(file, canvases);
                 const blob = new Blob([bytes], { type: "application/pdf" });
                 const link = document.createElement("a");
                 link.href = URL.createObjectURL(blob);
@@ -69,6 +71,7 @@ export default function App() {
             </button>
           </div>
 
+          {/* PDF viewer */}
           <PdfViewer
             file={file}
             currentPage={currentPage}
