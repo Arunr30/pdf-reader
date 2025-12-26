@@ -1,21 +1,79 @@
-React PDF Viewer with Annotation
+React PDF Viewer & Annotation
 
-This is a simple React PDF Viewer with a canvas overlay for annotations. You can draw, add text, or type signatures on top of your PDF pages.
+This is a React PDF Viewer with an annotation layer. Users can:
 
- Note: This is a work-in-progress. Due to time constraints, some errors were fixed quickly. Some features, like UI buttons or automated file selection, are not fully implemented yet.
+View PDFs page by page
+
+Draw on PDF pages
+
+Add text anywhere on the page
+
+Add a typed signature
+
+Export the annotated PDF
+
+⚠️ Note: This is a work-in-progress. Some features are simplified and may have minor issues.
 
 Features
 
-View PDF files page by page.
+Upload a PDF from your computer
 
-Add annotations on top of PDF pages:
+Annotate each page with text, signature, or freehand drawing
 
-Draw with mouse.
+Export the annotated PDF
 
-Add text anywhere on the page.
+Each page has its own canvas for annotations
 
-Typed signature (treated like text for now).
+How to Run
 
-Canvas automatically scales to match PDF page size.
+Clone the repository:
 
-Annotations are placed directly over the PDF, no duplicates below.
+git clone https://github.com/YourUsername/pdf-reader.git
+cd pdf-reader
+
+
+Install dependencies:
+
+npm install
+
+
+Start the development server:
+
+npm start
+
+
+Open in your browser:
+
+http://localhost:3000
+
+
+Log in (default Login page provided for demo)
+
+Choose a PDF file using the file input
+
+Use the annotation controls to add text, signature, or draw
+
+Export your annotated PDF using the Export button
+
+File Structure (Simplified)
+src/
+├─ App.jsx               # Main app
+├─ pdf/
+│  └─ PdfViewer.jsx      # PDF viewer component
+├─ tools/
+│  ├─ TextTool.js        # Add text utility
+│  └─ SignatureTool.js   # Draw / signature utility
+├─ utils/
+│  └─ exportPDF.js       # Minimal PDF export stub
+└─ auth/
+   └─ Login.jsx          # Simple login page
+
+Notes
+
+File input is manual — no upload buttons yet
+
+Canvas aligns with PDF pages for annotations
+
+Export uses a minimal stub for now; you can replace it with real PDF export logic later
+
+Works best with modern browsers
